@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black222">#222222</color>
+    <!--    zxing-->
+    <color name="result_view">#B0000000</color>
+    <color name="viewfinder_frame">#90FFFFFF</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_point_color">#C0FFFF00</color>
+</resources>

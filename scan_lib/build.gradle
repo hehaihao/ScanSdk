@@ -25,6 +25,6 @@ android {
 }
 
 dependencies {
-//    implementation fileTree(dir: "libs", include: ["*.jar"])
-    provided files('libs/zxing.jar')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    provided files('libs/zxing.jar')
 }
