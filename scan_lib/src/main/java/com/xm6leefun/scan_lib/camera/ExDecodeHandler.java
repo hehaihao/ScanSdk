@@ -22,12 +22,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.ReaderException;
-import com.google.zxing.Result;
-import com.google.zxing.common.HybridBinarizer;
+import com.xm6leefun.scan_lib.zxing.BinaryBitmap;
+import com.xm6leefun.scan_lib.zxing.DecodeHintType;
+import com.xm6leefun.scan_lib.zxing.MultiFormatReader;
+import com.xm6leefun.scan_lib.zxing.ReaderException;
+import com.xm6leefun.scan_lib.zxing.Result;
+import com.xm6leefun.scan_lib.zxing.common.HybridBinarizer;
 import com.xm6leefun.scan_lib.R;
 import com.xm6leefun.scan_lib.ScanApiActivity;
 

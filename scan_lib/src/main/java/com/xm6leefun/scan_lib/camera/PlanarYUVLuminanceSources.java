@@ -18,7 +18,7 @@ package com.xm6leefun.scan_lib.camera;
 
 import android.graphics.Bitmap;
 
-import com.google.zxing.LuminanceSource;
+import com.xm6leefun.scan_lib.zxing.LuminanceSource;
 
 /**
  * This object extends LuminanceSource around an array of YUV data returned from the camera driver,

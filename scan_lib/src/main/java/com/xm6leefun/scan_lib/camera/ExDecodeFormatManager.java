@@ -19,7 +19,7 @@ package com.xm6leefun.scan_lib.camera;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.google.zxing.BarcodeFormat;
+import com.xm6leefun.scan_lib.zxing.BarcodeFormat;
 
 import java.util.Arrays;
 import java.util.List;

@@ -33,7 +33,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.google.zxing.ResultPoint;
+import com.xm6leefun.scan_lib.zxing.ResultPoint;
 import com.xm6leefun.scan_lib.R;
 
 import java.util.Collection;

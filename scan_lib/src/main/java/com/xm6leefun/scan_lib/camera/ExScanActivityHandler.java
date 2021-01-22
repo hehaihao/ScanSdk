@@ -25,8 +25,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
+import com.xm6leefun.scan_lib.zxing.BarcodeFormat;
+import com.xm6leefun.scan_lib.zxing.Result;
 import com.xm6leefun.scan_lib.R;
 import com.xm6leefun.scan_lib.ScanApiActivity;
 

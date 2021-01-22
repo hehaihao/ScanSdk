@@ -19,9 +19,9 @@ package com.xm6leefun.scan_lib.camera;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.DecodeHintType;
-import com.google.zxing.ResultPointCallback;
+import com.xm6leefun.scan_lib.zxing.BarcodeFormat;
+import com.xm6leefun.scan_lib.zxing.DecodeHintType;
+import com.xm6leefun.scan_lib.zxing.ResultPointCallback;
 import com.xm6leefun.scan_lib.ScanApiActivity;
 
 import java.util.Hashtable;

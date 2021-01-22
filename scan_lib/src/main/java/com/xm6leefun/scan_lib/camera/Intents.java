@@ -29,7 +29,7 @@ public final class Intents {
      * Send this intent to open the Barcodes app in scanning mode, find a barcode, and return
      * the results.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SCAN";
+    public static final String ACTION = "com.xm6leefun.scan_lib.zxing.client.android.SCAN";
 
     /**
      * By default, sending Scan.ACTION will decode all barcodes that we understand. However it
@@ -44,7 +44,7 @@ public final class Intents {
 
     /**
      * Comma-separated list of formats to scan for. The values must match the names of
-     * {@link com.google.zxing.BarcodeFormat}s, such as {@link com.google.zxing.BarcodeFormat#EAN_13}.
+     * {@link com.xm6leefun.scan_lib.zxing.BarcodeFormat}s, such as {@link com.xm6leefun.scan_lib.zxing.BarcodeFormat#EAN_13}.
      * Example: "EAN_13,EAN_8,QR_CODE"
      *
      * This overrides {@link #MODE}.
@@ -52,7 +52,7 @@ public final class Intents {
     public static final String SCAN_FORMATS = "SCAN_FORMATS";
 
     /**
-     * @see com.google.zxing.DecodeHintType#CHARACTER_SET
+     * @see com.xm6leefun.scan_lib.zxing.DecodeHintType#CHARACTER_SET
      */
     public static final String CHARACTER_SET = "CHARACTER_SET";
 
@@ -105,7 +105,7 @@ public final class Intents {
      * Send this intent to encode a piece of data as a QR code and display it full screen, so
      * that another person can scan the barcode from your screen.
      */
-    public static final String ACTION = "com.google.zxing.client.android.ENCODE";
+    public static final String ACTION = "com.xm6leefun.scan_lib.zxing.client.android.ENCODE";
 
     /**
      * The data to encode. Use Intent.putExtra(DATA, data) where data is either a String or a
@@ -135,7 +135,7 @@ public final class Intents {
     /**
      * Use Google Book Search to search the contents of the book provided.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SEARCH_BOOK_CONTENTS";
+    public static final String ACTION = "com.xm6leefun.scan_lib.zxing.client.android.SEARCH_BOOK_CONTENTS";
 
     /**
      * The book to search, identified by ISBN number.
@@ -155,7 +155,7 @@ public final class Intents {
 	    /**
 	     * Internal intent used to trigger connection to a wi-fi network.
 	     */
-	    public static final String ACTION = "com.google.zxing.client.android.WIFI_CONNECT";
+	    public static final String ACTION = "com.xm6leefun.scan_lib.zxing.client.android.WIFI_CONNECT";
 
 	    /**
 	     * The network to connect to, all the configuration provided here.
@@ -182,7 +182,7 @@ public final class Intents {
      * Give the user a choice of items to encode as a barcode, then render it as a QR Code and
      * display onscreen for a friend to scan with their phone.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SHARE";
+    public static final String ACTION = "com.xm6leefun.scan_lib.zxing.client.android.SHARE";
 
     private Share() {
     }

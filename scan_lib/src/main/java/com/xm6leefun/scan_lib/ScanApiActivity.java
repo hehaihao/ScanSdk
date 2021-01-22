@@ -15,8 +15,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
+import com.xm6leefun.scan_lib.zxing.BarcodeFormat;
+import com.xm6leefun.scan_lib.zxing.Result;
 import com.xm6leefun.scan_lib.camera.CameraManager;
 import com.xm6leefun.scan_lib.camera.ExScanActivityHandler;
 import com.xm6leefun.scan_lib.camera.InactivityTimer;

@@ -16,8 +16,8 @@
 
 package com.xm6leefun.scan_lib.camera;
 
-import com.google.zxing.ResultPoint;
-import com.google.zxing.ResultPointCallback;
+import com.xm6leefun.scan_lib.zxing.ResultPoint;
+import com.xm6leefun.scan_lib.zxing.ResultPointCallback;
 
 public final class ViewfinderResultPointCallback implements ResultPointCallback {
 
