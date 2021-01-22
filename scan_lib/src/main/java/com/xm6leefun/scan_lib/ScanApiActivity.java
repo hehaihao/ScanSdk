@@ -1,226 +1,164 @@
 package com.xm6leefun.scan_lib;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.xm6leefun.scan_lib.zxing.BarcodeFormat;
+import com.xm6leefun.scan_lib.codescaner.OnScannerCompletionListener;
+import com.xm6leefun.scan_lib.codescaner.ScannerView;
 import com.xm6leefun.scan_lib.zxing.Result;
-import com.xm6leefun.scan_lib.camera.CameraManager;
-import com.xm6leefun.scan_lib.camera.ExScanActivityHandler;
-import com.xm6leefun.scan_lib.camera.InactivityTimer;
-import com.xm6leefun.scan_lib.camera.ViewfinderView;
-
-import java.io.IOException;
-import java.util.Vector;
+import com.xm6leefun.scan_lib.zxing.client.result.CalendarParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.EmailAddressParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.GeoParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.ISBNParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.ParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.ParsedResultType;
+import com.xm6leefun.scan_lib.zxing.client.result.ProductParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.SMSParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.TelParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.TextParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.URIParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.VINParsedResult;
+import com.xm6leefun.scan_lib.zxing.client.result.WifiParsedResult;
 
 /**
  * @Description:
  * @Author: hhh
  * @CreateDate: 2021/1/18 13:43
  */
-public class ScanApiActivity extends Activity implements SurfaceHolder.Callback{
-
-    private ExScanActivityHandler handler;
-    private boolean hasSurface;
-    private Vector<BarcodeFormat> decodeFormats;
-    private String characterSet;
-    private InactivityTimer inactivityTimer;
-    private MediaPlayer mediaPlayer;
-    private boolean playBeep;
-    private static final float BEEP_VOLUME = 0.10f;
-    private boolean vibrate;
-
-    SurfaceView surfaceView;
-    ViewfinderView viewfinderView;
-    ImageView iv_scan_close;
+public class ScanApiActivity extends Activity implements OnScannerCompletionListener {
+    protected ScannerView mScannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_api);
-        surfaceView = findViewById(R.id.preview_view);
-        viewfinderView = findViewById(R.id.viewfinder_view);
-        iv_scan_close = findViewById(R.id.iv_scan_close);
-        iv_scan_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mHui = getIntent().getStringExtra(HuiMA);
-        initScan();
+        mScannerView = findViewById(R.id.scanner_view);
+        mScannerView.setOnScannerCompletionListener(this);
     }
 
-
-    private CameraManager cameraManager;
-    public CameraManager getCameraManager() {
-        return cameraManager;
-    }
     @Override
     protected void onResume() {
+        initScan();
         super.onResume();
-        cameraManager = new CameraManager(this);
-        initOnResume1();
-    }
-
-    private void initOnResume1() {
-        SurfaceHolder surfaceHolder = surfaceView.getHolder();
-        if (hasSurface) {
-            initCamera(surfaceHolder);
-        } else {
-            surfaceHolder.addCallback(this);
-            surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        }
-        decodeFormats = null;
-        characterSet = null;
-        playBeep = true;
-        AudioManager audioService = (AudioManager) getSystemService(AUDIO_SERVICE);
-        if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-            playBeep = false;
-        }
-//        initBeepSound();
-        vibrate = true;
     }
 
     @Override
     protected void onPause() {
+        mScannerView.onPause();
         super.onPause();
-        initOnPause2();
-    }
-
-    private void initOnPause2() {
-        if (handler != null) {
-            handler.quitSynchronously();
-            handler = null;
-        }
-        try {
-            CameraManager.get().closeDriver();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     protected void onDestroy() {
+        mScannerView.onDestroy();
         super.onDestroy();
-        try {
-            inactivityTimer.shutdown();
-        } catch (Exception e) {
-            e.printStackTrace();
+    }
+
+    @Override
+    public void onScannerCompletion(final Result rawResult, final ParsedResult parsedResult, Bitmap barcode) {
+        mScannerView.playBeepSoundAndVibrate();
+        if (rawResult == null) {
+            pauseScan();
+            Toast.makeText(this,"未发现二维码",Toast.LENGTH_LONG).show();
+            return;
         }
+        //延迟500ms开始发送消息
+        new Handler().postDelayed(new Runnable(){
+            public void run() {
+                successGetScan(parsedResult, rawResult);
+            }
+        }, 100);
     }
 
-    /**
-     * When the beep has finished playing, rewind to queue up another one.
-     */
-    private final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            mediaPlayer.seekTo(0);
+    //成功获取到二维码
+    private void successGetScan(ParsedResult parsedResult, Result rawResult) {
+        ParsedResultType type = parsedResult.getType();
+        String url = "";
+        switch (type) {
+            case URI:
+                URIParsedResult uri = (URIParsedResult) parsedResult;
+                url = uri.getURI();
+                break;
+            case TEXT:
+                TextParsedResult textParsedResult = (TextParsedResult) parsedResult;
+                url = textParsedResult.getText();
+                break;
+            case PRODUCT:
+                ProductParsedResult productParsedResult = (ProductParsedResult) parsedResult;
+                url = productParsedResult.getProductID();
+                break;
+            case ISBN:
+                ISBNParsedResult isbnParsedResult = (ISBNParsedResult) parsedResult;
+                url = isbnParsedResult.getISBN();
+                break;
+            case GEO:
+                GeoParsedResult geoParsedResult = (GeoParsedResult) parsedResult;
+                url = geoParsedResult.getGeoURI();
+                break;
+            case SMS:
+                SMSParsedResult smsParsedResult = (SMSParsedResult) parsedResult;
+                url = smsParsedResult.getSMSURI();
+                break;
+            case TEL:
+                TelParsedResult telParsedResult = (TelParsedResult) parsedResult;
+                url = telParsedResult.getTelURI();
+                break;
+            case VIN:
+                VINParsedResult vinParsedResult = (VINParsedResult) parsedResult;
+                url = vinParsedResult.getVIN();
+                break;
+            case WIFI:
+                WifiParsedResult wifiParsedResult = (WifiParsedResult) parsedResult;
+                url = wifiParsedResult.getPassword();
+                break;
+            case CALENDAR:
+                CalendarParsedResult calendarParsedResult = (CalendarParsedResult) parsedResult;
+                url = calendarParsedResult.getDescription();
+                break;
+            case EMAIL_ADDRESS:
+                EmailAddressParsedResult emailAddressParsedResult = (EmailAddressParsedResult) parsedResult;
+                url = emailAddressParsedResult.getBody();
+                break;
+            default:
+                break;
         }
-    };
-
-    public ViewfinderView getViewfinderView() {
-        return viewfinderView;
-    }
-    public Handler getHandler() {
-        return handler;
-    }
-    public void drawViewfinder() {
-        viewfinderView.drawViewfinder();
+        //处理扫描结果
+        Toast.makeText(this,url,Toast.LENGTH_LONG).show();
+        finish();
     }
 
-    public  static  final String HuiMA="huima";
-    String mHui=null;
-    /**
-     * 处理扫描结果
-     * @param result
-     * @param barcode
-     */
-    String qrCode =null;
-    String resultScan =null;
-    public void handleDecode(Result result, Bitmap barcode) {
-        inactivityTimer.onActivity();
-        resultScan = result.getText();
-
-    }
-
-    private void reScan() {
-        viewfinderView.isRefresh = true;
-        try {
-            handler.initrequestAutoFocus();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            handler.restartPreviewAndDecode();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void initScan() {
-        viewfinderView.isRefresh = true;
-        CameraManager.init(getApplication());
-        hasSurface = false;
-        inactivityTimer = new InactivityTimer(this);
-
-    }
-    private Camera camera = null;
-    private Camera.Parameters parameters = null;
-    public static boolean statusFlag = true;
-    private void initCamera(SurfaceHolder surfaceHolder) {
-        try {
-            CameraManager.get().openDriver(surfaceHolder);
-            camera = CameraManager.get().getC();
-            parameters = camera.getParameters();
-        } catch (IOException ioe) {
-            return;
-        } catch (RuntimeException e) {
-            return;
-        }
-        if (handler == null) {
-            handler = new ExScanActivityHandler(ScanApiActivity.this, decodeFormats, characterSet);
-        }
-    }
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
-    }
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        if (!hasSurface) {
-            hasSurface = true;
-            initCamera(holder);
-        }
-    }
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        hasSurface = false;
+        mScannerView.onInit();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
     }
 
-    private static final long VIBRATE_DURATION = 200L;
+    protected void pauseScan() {
+        mScannerView.onPause();
+    }
+
+    private void refreshScan() {
+        mScannerView.onResume();
+    }
+
     /**
-     * 响铃和震动
+     * 关闭当前界面
+     * @param view
      */
-//    private void playBeepSoundAndVibrate() {
-//        if (playBeep && mediaPlayer != null) {
-//            mediaPlayer.start();
-//        }
-//        if (vibrate) {
-//            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-//            vibrator.vibrate(VIBRATE_DURATION);
-//        }
-//    }
+    public void close(View view) {
+        finish();
+    }
 }
