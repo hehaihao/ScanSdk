@@ -1,11 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xm6leefun.scan_lib">
 
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application>
-        <activity android:name=".ScanApiActivity" />
+        <activity
+            android:name=".ScanApiActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WebApiActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

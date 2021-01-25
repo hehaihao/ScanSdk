@@ -1,6 +1,7 @@
 package com.xm6leefun.scan_lib;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import com.xm6leefun.scan_lib.zxing.client.result.WifiParsedResult;
  * @CreateDate: 2021/1/18 13:43
  */
 public class ScanApiActivity extends Activity implements OnScannerCompletionListener {
+    public static final String SCAN_RESULT = "scan_result";
     protected ScannerView mScannerView;
 
     @Override
@@ -127,7 +129,11 @@ public class ScanApiActivity extends Activity implements OnScannerCompletionList
                 break;
         }
         //处理扫描结果
-        Toast.makeText(this,url,Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        Bundle args = new Bundle();
+        args.putString(SCAN_RESULT,url);
+        intent.putExtras(args);
+        setResult(Activity.RESULT_OK,intent);
         finish();
     }
 

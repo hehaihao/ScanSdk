@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        var u = navigator.userAgent;
+        var isApp = u.includes('ScanSDK'); //是否为app
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        function openScan(callBack) {
+            javascript:ScanSDKJs.openScan(callBack);
+        }
+        function scanCallBack(message) {
+            if(isAndroid){
+                javascript:ScanSDKJs.showToast(message);
+            }
+            resultText = document.getElementById("showResult");
+            resultText.innerHTML = "是否为官方App："+isApp + "；是否Android设备："+isAndroid + "，扫描结果：" + message;
+        }
+    </script>
+
+</head>
+
+<body>
+<p>这是一个H5界面</p>
+<input type="button" value="扫一扫"
+       onClick="openScan('scanCallBack')" />
+<p id="showResult"></p>
+</body>
+</html>
