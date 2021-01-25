@@ -3,14 +3,18 @@ package com.xm6leefun.scan_lib;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.xm6leefun.scan_lib.utils.CircularAnimUtil;
@@ -31,25 +35,32 @@ public class WebApiActivity extends Activity {
         WebSettings webSetting = web.getSettings();
         webSetting.setJavaScriptEnabled(true);
         webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSetting.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+        webSetting.setDomStorageEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSetting.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         webSetting.setBlockNetworkImage(false);
         webSetting.setUserAgentString(webSetting.getUserAgentString() + ";ScanSDK");
+        web.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                //https忽略证书问题
+                handler.proceed();
+            }
+
+        });
         web.addJavascriptInterface(new ScanSDKJsInterface(),"ScanSDKJs");
         web.loadUrl("file:///android_asset/index.html");
     }
 
     private static final int SCAN_CODE = 0x1024;
-    private String scanCallBack;
     private class ScanSDKJsInterface{
         /**
          * 打开扫一扫
-         * @param scanCallBack 回调
          */
         @JavascriptInterface
-        public void openScan(String scanCallBack) {
-            WebApiActivity.this.scanCallBack = scanCallBack;
+        public void appCamera() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -88,7 +99,14 @@ public class WebApiActivity extends Activity {
                 case SCAN_CODE:
                     Bundle bundle = data.getExtras();
                     String scanResult = bundle.getString(ScanApiActivity.SCAN_RESULT,"");
-                    web.loadUrl("javascript:"+scanCallBack+"(\"" + scanResult + "\")");
+                    String mBarcodeFormat = bundle.getString(ScanApiActivity.RESULT_TYPE,"");
+                    String call="";
+                    if ("DATA_MATRIX".equals(mBarcodeFormat)) {  // DM码
+                        call = "javascript:appTest(\"" + mBarcodeFormat + "," + scanResult + "\")";
+                    } else {
+                        call ="javascript:appTest(\"" + scanResult + "\")" ;
+                    }
+                    web.loadUrl(call);
                     break;
             }
         }

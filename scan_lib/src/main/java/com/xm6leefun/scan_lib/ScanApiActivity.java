@@ -32,6 +32,7 @@ import com.xm6leefun.scan_lib.zxing.client.result.WifiParsedResult;
  */
 public class ScanApiActivity extends Activity implements OnScannerCompletionListener {
     public static final String SCAN_RESULT = "scan_result";
+    public static final String RESULT_TYPE = "result_type";
     protected ScannerView mScannerView;
 
     @Override
@@ -132,6 +133,7 @@ public class ScanApiActivity extends Activity implements OnScannerCompletionList
         Intent intent = new Intent();
         Bundle args = new Bundle();
         args.putString(SCAN_RESULT,url);
+        args.putString(RESULT_TYPE,rawResult.getBarcodeFormat().toString());
         intent.putExtras(args);
         setResult(Activity.RESULT_OK,intent);
         finish();
