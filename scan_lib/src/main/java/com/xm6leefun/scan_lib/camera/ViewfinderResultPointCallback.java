@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 ZXing authors
+ * Copyright (C) 2009 ZXing authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package com.xm6leefun.scan_lib.codescaner.camera.open;
+package com.xm6leefun.scan_lib.camera;
 
-/**
- * Enumeration of directions a camera may face: front or back.
- */
-public enum CameraFacing {
+import com.xm6leefun.scan_lib.zxing.ResultPoint;
+import com.xm6leefun.scan_lib.zxing.ResultPointCallback;
 
-  BACK,  // must be value 0!
-  FRONT, // must be value 1!
+public final class ViewfinderResultPointCallback implements ResultPointCallback {
+
+  private final ViewfinderView viewfinderView;
+  public ViewfinderResultPointCallback(ViewfinderView viewfinderView) {
+    this.viewfinderView = viewfinderView;
+  }
+
+  public void foundPossibleResultPoint(ResultPoint point) {
+    viewfinderView.addPossibleResultPoint(point);
+  }
 
 }

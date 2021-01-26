@@ -2,37 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#000000">
 
     <include layout="@layout/scan_sdk_top_bar"/>
 
-    <com.xm6leefun.scan_lib.codescaner.ScannerView
-        android:id="@+id/scanner_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/base_topBar_lin_main" />
+        android:layout_below="@id/base_topBar_lin_main">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/base_topBar_lin_main"
-        android:background="@drawable/shape_rectangle_a1_50a"
-        android:textColor="#f3f3f6"
-        android:text="请将手机摄像头对准防伪标签，或稍微前后倾斜，避免标签反光，标签应平整，没有污损"
-        android:lineSpacingMultiplier="1.5"
-        android:layout_margin="20dp"
-        android:padding="15dp"
-        />
-    <ImageView
-        android:id="@+id/iv_scan_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        android:padding="10dp"
-        android:src="@mipmap/scan_close"
-        android:onClick="close"
-        />
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.xm6leefun.scan_lib.camera.ViewfinderView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:corner_color="#222222"
+            app:frame_color="@android:color/transparent"
+            app:bottom_text_color="#222222"
+            app:bottom_text_size="36"
+            app:label_text_color="#222222"
+            app:label_text_size="48"
+            app:laser_color="#222222"
+            app:mask_color="#60000000"
+            app:result_color="#B0000000"
+            app:result_point_color="#C0FFFF00"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rectangle_a1_50a"
+            android:textColor="#f3f3f6"
+            android:text="请将手机摄像头对准防伪标签，或稍微前后倾斜，避免标签反光，标签应平整，没有污损"
+            android:lineSpacingMultiplier="1.5"
+            android:layout_margin="20dp"
+            android:padding="15dp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_scan_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            android:padding="10dp"
+            android:src="@mipmap/scan_close"
+            android:onClick="close"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
