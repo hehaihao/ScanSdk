@@ -1,11 +1,13 @@
 package com.xm6leefun.scan_lib;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xm6leefun.scan_lib.codescaner.OnScannerCompletionListener;
@@ -31,16 +33,29 @@ import com.xm6leefun.scan_lib.zxing.client.result.WifiParsedResult;
  * @CreateDate: 2021/1/18 13:43
  */
 public class ScanApiActivity extends Activity implements OnScannerCompletionListener {
+    public static final int SCAN_CODE = 0x1024;
     public static final String SCAN_RESULT = "scan_result";
     public static final String RESULT_TYPE = "result_type";
     protected ScannerView mScannerView;
+    protected TextView tvTitle;
+
+    public static void jump(Activity activity){
+        Intent intent = new Intent(activity,ScanApiActivity.class);
+        activity.startActivity(intent);
+    }
+    public static void jumpForResult(Activity activity){
+        Intent intent = new Intent(activity,ScanApiActivity.class);
+        activity.startActivityForResult(intent,SCAN_CODE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_api);
         mScannerView = findViewById(R.id.scanner_view);
+        tvTitle = findViewById(R.id.base_topBar_tv_title);
         mScannerView.setOnScannerCompletionListener(this);
+        tvTitle.setText("扫一扫");
     }
 
     @Override

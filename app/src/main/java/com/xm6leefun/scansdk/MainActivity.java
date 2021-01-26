@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
-        Intent intent = new Intent(this, WebApiActivity.class);
-        startActivity(intent);
+        WebApiActivity.jump(this,"https://www.baidu.com/");
     }
 }

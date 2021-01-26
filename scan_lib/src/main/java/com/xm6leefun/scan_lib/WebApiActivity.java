@@ -2,6 +2,7 @@ package com.xm6leefun.scan_lib;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -15,9 +16,9 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xm6leefun.scan_lib.utils.CircularAnimUtil;
 
 /**
  * @Description:
@@ -25,6 +26,17 @@ import com.xm6leefun.scan_lib.utils.CircularAnimUtil;
  * @CreateDate: 2021/1/22 16:42
  */
 public class WebApiActivity extends Activity {
+
+    public static void jump(Context context,String url){
+        Intent intent = new Intent(context,WebApiActivity.class);
+        Bundle args = new Bundle();
+        args.putString(URL,url);
+        intent.putExtras(args);
+        context.startActivity(intent);
+    }
+
+    private static final String URL = "url";
+
     private WebView web;
     @SuppressLint("JavascriptInterface")
     @Override
@@ -41,7 +53,9 @@ public class WebApiActivity extends Activity {
             webSetting.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         webSetting.setBlockNetworkImage(false);
-        webSetting.setUserAgentString(webSetting.getUserAgentString() + ";ScanSDK");
+        webSetting.setAppCacheEnabled(false);
+
+        webSetting.setUserAgentString(webSetting.getUserAgentString() + ";TrueValue");
         web.setWebViewClient(new WebViewClient(){
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -50,11 +64,13 @@ public class WebApiActivity extends Activity {
             }
 
         });
-        web.addJavascriptInterface(new ScanSDKJsInterface(),"ScanSDKJs");
-        web.loadUrl("file:///android_asset/index.html");
+        web.addJavascriptInterface(new ScanSDKJsInterface(),"js");
+        Bundle args = getIntent().getExtras();
+        String url = "";
+        if(args != null) url = args.getString(URL,"");
+        web.loadUrl(url);
     }
 
-    private static final int SCAN_CODE = 0x1024;
     private class ScanSDKJsInterface{
         /**
          * 打开扫一扫
@@ -64,8 +80,7 @@ public class WebApiActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(WebApiActivity.this, ScanApiActivity.class);
-                    CircularAnimUtil.startActivityForResult(WebApiActivity.this, intent,SCAN_CODE, web,R.color.tran);
+                    ScanApiActivity.jumpForResult(WebApiActivity.this);
                 }
             });
         }
@@ -96,7 +111,7 @@ public class WebApiActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
             switch (requestCode){
-                case SCAN_CODE:
+                case ScanApiActivity.SCAN_CODE:
                     Bundle bundle = data.getExtras();
                     String scanResult = bundle.getString(ScanApiActivity.SCAN_RESULT,"");
                     String mBarcodeFormat = bundle.getString(ScanApiActivity.RESULT_TYPE,"");
@@ -138,5 +153,13 @@ public class WebApiActivity extends Activity {
             if(parent != null) parent.removeView(web);
             web.destroy();
         }
+    }
+
+    /**
+     * 关闭当前界面
+     * @param view
+     */
+    public void close(View view) {
+        finish();
     }
 }

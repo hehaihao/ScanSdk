@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <include layout="@layout/scan_sdk_top_bar"/>
+
     <com.xm6leefun.scan_lib.codescaner.ScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
@@ -12,6 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/base_topBar_lin_main"
         android:background="@drawable/shape_rectangle_a1_50a"
         android:textColor="#f3f3f6"
         android:text="请将手机摄像头对准防伪标签，或稍微前后倾斜，避免标签反光，标签应平整，没有污损"
