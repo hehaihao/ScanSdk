@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xm6leefun.scan_lib.codescaner.OnScannerCompletionListener;
 import com.xm6leefun.scan_lib.codescaner.ScannerView;
+import com.xm6leefun.scan_lib.utils.CircularAnimUtil;
 import com.xm6leefun.scan_lib.zxing.Result;
 import com.xm6leefun.scan_lib.zxing.client.result.CalendarParsedResult;
 import com.xm6leefun.scan_lib.zxing.client.result.EmailAddressParsedResult;
@@ -38,14 +40,15 @@ public class ScanApiActivity extends Activity implements OnScannerCompletionList
     public static final String RESULT_TYPE = "result_type";
     protected ScannerView mScannerView;
     protected TextView tvTitle;
+    protected ImageView imFlash;
 
-    public static void jump(Activity activity){
+    public static void jump(Activity activity,View triggerView){
         Intent intent = new Intent(activity,ScanApiActivity.class);
-        activity.startActivity(intent);
+        CircularAnimUtil.startActivity(activity, intent, triggerView,R.color.tran, 100);
     }
-    public static void jumpForResult(Activity activity){
+    public static void jumpForResult(Activity activity,View triggerView){
         Intent intent = new Intent(activity,ScanApiActivity.class);
-        activity.startActivityForResult(intent,SCAN_CODE);
+        CircularAnimUtil.startActivityForResult(activity, intent, SCAN_CODE,triggerView,R.color.tran, 100);
     }
 
     @Override
@@ -54,6 +57,9 @@ public class ScanApiActivity extends Activity implements OnScannerCompletionList
         setContentView(R.layout.activity_scan_api);
         mScannerView = findViewById(R.id.scanner_view);
         tvTitle = findViewById(R.id.base_topBar_tv_title);
+        imFlash = findViewById(R.id.base_topBar_iv_right);
+        imFlash.setVisibility(View.VISIBLE);
+        imFlash.setImageResource(R.mipmap.flash_sel);
         mScannerView.setOnScannerCompletionListener(this);
         tvTitle.setText("扫一扫");
     }
@@ -183,5 +189,11 @@ public class ScanApiActivity extends Activity implements OnScannerCompletionList
      */
     public void close(View view) {
         finish();
+    }
+    private boolean isToggleLight = false;
+    public void rightClick(View view) {
+        mScannerView.toggleLight(!isToggleLight);
+        if(isToggleLight) isToggleLight = false;
+        else isToggleLight = true;
     }
 }

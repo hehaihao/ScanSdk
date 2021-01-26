@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
-        WebApiActivity.jump(this,"https://www.baidu.com/");
+        WebApiActivity.jump(this,"file:///android_asset/index.html");
     }
 }

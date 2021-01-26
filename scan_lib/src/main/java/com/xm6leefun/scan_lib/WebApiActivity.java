@@ -80,7 +80,7 @@ public class WebApiActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    ScanApiActivity.jumpForResult(WebApiActivity.this);
+                    ScanApiActivity.jumpForResult(WebApiActivity.this,web);
                 }
             });
         }

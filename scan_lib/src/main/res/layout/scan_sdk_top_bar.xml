@@ -51,8 +51,11 @@
             android:layout_height="match_parent"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="visible"
+            android:onClick="rightClick"/>
     </LinearLayout>
 
 </LinearLayout>

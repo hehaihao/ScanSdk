@@ -58,7 +58,7 @@ public class ScannerView extends RelativeLayout {
                 ScannerView.this.addView(mSurfaceView);
                 ScannerView.this.addView(mViewfinderView, layoutParams);
             }
-        }, 150);
+        }, 100);
 
         mSurfaceView.setOnClickListener(new OnClickListener() {
             @Override

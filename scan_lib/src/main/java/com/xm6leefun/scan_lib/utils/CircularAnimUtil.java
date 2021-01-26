@@ -146,6 +146,10 @@ public class CircularAnimUtil {
             Activity thisActivity, Intent intent, Integer requestCode, View triggerView, int colorOrImageRes) {
 		startActivityForResult(thisActivity, intent, requestCode, null, triggerView, colorOrImageRes, PERFECT_MILLS);
 	}
+	public static void startActivityForResult(
+            Activity thisActivity, Intent intent, Integer requestCode, View triggerView, int colorOrImageRes,long durationMills) {
+		startActivityForResult(thisActivity, intent, requestCode, null, triggerView, colorOrImageRes, durationMills);
+	}
 
 	public static void startActivity(Activity thisActivity, Intent intent, View triggerView, int colorOrImageRes, long durationMills) {
 		startActivityForResult(thisActivity, intent, null, null, triggerView, colorOrImageRes, durationMills);

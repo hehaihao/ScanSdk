@@ -35,9 +35,9 @@ final class ViewfinderView extends View {
     private int tipTextColor = 0xffaaaaaa;       //提示文字颜色rgb值，默认白色
     private int frameOutsideColor = 0x73000000;   //扫描框以外区域半透明黑色   45%黑色透明度
     private int laserLineMoveSpeed = 6;           //扫描线移动间距，默认每毫秒移动6px，单位px
-    private int frameStrokeColor =  0xff47abff;   //扫描边框颜色rgb值
+    private int frameStrokeColor =  0xff222222;   //扫描边框颜色rgb值
     private float frameStrokeWidth = 2;           //扫描边框的宽度，单位px
-    private int padding = 12; //四个角的间距
+    private int padding = -10; //四个角的间距
     //是否暂停
     private boolean isPause;
     private String textStr = "";//提示语
@@ -178,7 +178,7 @@ final class ViewfinderView extends View {
      * @param frame
      */
     private void drawFrameCorner(Canvas canvas, Rect frame) {
-        paint.setColor(getResources().getColor(R.color._47abff));
+        paint.setColor(frameStrokeColor);
         paint.setStyle(Paint.Style.FILL);
         // 左上角
         canvas.drawRect(frame.left - frameCornerWidth - padding, frame.top-padding, frame.left-padding, frame.top -padding + frameCornerLength, paint);

@@ -9,7 +9,8 @@
     <com.xm6leefun.scan_lib.codescaner.ScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/base_topBar_lin_main" />
 
     <TextView
         android:layout_width="match_parent"
