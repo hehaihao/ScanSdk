@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 /**
- * @Description:
+ * @Description:回码扫描
  * @Author: hhh
  * @CreateDate: 2021/1/18 13:43
  */
@@ -70,7 +70,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         imFlash = findViewById(R.id.base_topBar_iv_right);
         imFlash.setVisibility(View.VISIBLE);
         imFlash.setImageResource(R.mipmap.flash_sel);
-        tvTitle.setText("扫一扫");
+        tvTitle.setText(getString(R.string.scan_api_title));
         initScan();
     }
 
@@ -144,7 +144,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         inactivityTimer.onActivity();
         resultScan = result.getText();
         if (TextUtils.isEmpty(resultScan)) {
-            Toast.makeText(this,"扫码失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.scan_api_fail),Toast.LENGTH_SHORT).show();
         } else {
             viewfinderView.isRefresh = false;
             playBeepSoundAndVibrate();
@@ -227,7 +227,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     public void rightClick(View view) {
         isOpen = !isOpen;
         if (camera==null) {
-            Toast.makeText(this,"摄像头未初始化，请稍后",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.scan_api_camera_not_init,Toast.LENGTH_SHORT).show();
             return;
         }
         if (isOpen) {

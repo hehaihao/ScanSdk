@@ -1,0 +1,5 @@
+<resources>
+    <string name="scan_api_title">扫一扫</string>
+    <string name="scan_api_fail">扫码失败</string>
+    <string name="scan_api_camera_not_init">摄像头未初始化，请稍后</string>
+</resources>

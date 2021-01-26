@@ -1,0 +1,5 @@
+<resources>
+    <string name="scan_api_title">scanner</string>
+    <string name="scan_api_fail">ScanFail</string>
+    <string name="scan_api_camera_not_init">Camera not initialized,please wait a moment.</string>
+</resources>
