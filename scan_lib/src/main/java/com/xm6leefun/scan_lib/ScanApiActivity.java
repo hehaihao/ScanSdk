@@ -38,18 +38,18 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     public static final String RESULT_TYPE = "result_type";
     protected TextView tvTitle;
     protected ImageView imFlash;
-    private SurfaceView surfaceView;
-    private ViewfinderView viewfinderView;
+    protected SurfaceView surfaceView;
+    protected ViewfinderView viewfinderView;
 
-    private ExScanActivityHandler handler;
-    private boolean hasSurface;
-    private Vector<BarcodeFormat> decodeFormats;
-    private String characterSet;
-    private InactivityTimer inactivityTimer;
-    private MediaPlayer mediaPlayer;
-    private boolean playBeep;
-    private static final float BEEP_VOLUME = 0.10f;
-    private boolean vibrate;
+    protected ExScanActivityHandler handler;
+    protected boolean hasSurface;
+    protected Vector<BarcodeFormat> decodeFormats;
+    protected String characterSet;
+    protected InactivityTimer inactivityTimer;
+    protected MediaPlayer mediaPlayer;
+    protected boolean playBeep;
+    protected static final float BEEP_VOLUME = 0.10f;
+    protected boolean vibrate;
 
     public static void jump(Activity activity,View triggerView){
         Intent intent = new Intent(activity,ScanApiActivity.class);
@@ -75,7 +75,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     }
 
 
-    private CameraManager cameraManager;
+    protected CameraManager cameraManager;
     public CameraManager getCameraManager() {
         return cameraManager;
     }
@@ -86,7 +86,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         initOnResume1();
     }
 
-    private void initOnResume1() {
+    protected void initOnResume1() {
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
         if (hasSurface) {
             initCamera(surfaceHolder);
@@ -111,7 +111,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         initOnPause2();
     }
 
-    private void initOnPause2() {
+    protected void initOnPause2() {
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;
@@ -163,7 +163,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     /**
      * 初始化声音资源
      */
-    private void initBeepSound() {
+    protected void initBeepSound() {
         if (playBeep && mediaPlayer == null) {
             setVolumeControlStream(AudioManager.STREAM_MUSIC);
             mediaPlayer = new MediaPlayer();
@@ -186,7 +186,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     /**
      * When the beep has finished playing, rewind to queue up another one.
      */
-    private final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
+    protected final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
         public void onCompletion(MediaPlayer mediaPlayer) {
             mediaPlayer.seekTo(0);
         }
@@ -202,7 +202,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         viewfinderView.drawViewfinder();
     }
 
-    private void reScan() {
+    protected void reScan() {
         viewfinderView.isRefresh = true;
         try {
             handler.initrequestAutoFocus();
@@ -223,7 +223,7 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
     public void close(View view) {
         finish();
     }
-    private boolean isOpen = false;  // 手电筒是否开启状态
+    protected boolean isOpen = false;  // 手电筒是否开启状态
     public void rightClick(View view) {
         isOpen = !isOpen;
         if (camera==null) {
@@ -250,17 +250,17 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         }
     }
 
-    private void initScan() {
+    protected void initScan() {
         viewfinderView.isRefresh = true;
         CameraManager.init(getApplication());
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
 
     }
-    private Camera camera = null;
-    private Camera.Parameters parameters = null;
+    protected Camera camera = null;
+    protected Camera.Parameters parameters = null;
     public static boolean statusFlag = true;
-    private void initCamera(SurfaceHolder surfaceHolder) {
+    protected void initCamera(SurfaceHolder surfaceHolder) {
         try {
             CameraManager.get().openDriver(surfaceHolder);
             camera = CameraManager.get().getC();
@@ -290,11 +290,11 @@ public class ScanApiActivity extends Activity implements SurfaceHolder.Callback 
         hasSurface = false;
     }
 
-    private static final long VIBRATE_DURATION = 200L;
+    protected static final long VIBRATE_DURATION = 200L;
     /**
      * 响铃和震动
      */
-    private void playBeepSoundAndVibrate() {
+    protected void playBeepSoundAndVibrate() {
         if (playBeep && mediaPlayer != null) {
             mediaPlayer.start();
         }
