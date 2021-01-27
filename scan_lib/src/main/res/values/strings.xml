@@ -2,4 +2,5 @@
     <string name="scan_api_title">扫一扫</string>
     <string name="scan_api_fail">扫码失败</string>
     <string name="scan_api_camera_not_init">摄像头未初始化，请稍后</string>
+    <string name="scan_api_tips">请将手机摄像头对准防伪标签，或稍微前后倾斜，避免标签反光，标签应平整，没有污损</string>
 </resources>

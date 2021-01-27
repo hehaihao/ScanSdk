@@ -17,6 +17,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.huawei.hms.ml.scan.HmsScan;
+
 
 /**
  * @Description:溯源H5
@@ -78,8 +80,7 @@ public class WebApiActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(WebApiActivity.this, HwScanApiActivity.class));
-//                    ScanApiActivity.jumpForResult(WebApiActivity.this,web);
+                    HwScanApiActivity.jumpForResult(WebApiActivity.this,web);
                 }
             });
         }
@@ -109,18 +110,30 @@ public class WebApiActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
+            String call="";
             switch (requestCode){
                 case ScanApiActivity.SCAN_CODE:
                     Bundle bundle = data.getExtras();
                     String scanResult = bundle.getString(ScanApiActivity.SCAN_RESULT,"");
                     String mBarcodeFormat = bundle.getString(ScanApiActivity.RESULT_TYPE,"");
-                    String call="";
                     if ("DATA_MATRIX".equals(mBarcodeFormat)) {  // DM码
                         call = "javascript:appTest(\"" + mBarcodeFormat + "," + scanResult + "\")";
                     } else {
                         call ="javascript:appTest(\"" + scanResult + "\")" ;
                     }
                     web.loadUrl(call);
+                    break;
+                case HwScanApiActivity.SCAN_CODE:
+                    HmsScan result = data.getParcelableExtra(HwScanApiActivity.SCAN_RESULT);
+                    if(result != null){
+                        String code = result.getOriginalValue();
+                        if (result.getScanType() == HmsScan.DATAMATRIX_SCAN_TYPE){
+                            call = "javascript:appTest(\"DATA_MATRIX," + code + "\")";
+                        }else{
+                            call ="javascript:appTest(\"" + code + "\")" ;
+                        }
+                        web.loadUrl(call);
+                    }
                     break;
             }
         }
