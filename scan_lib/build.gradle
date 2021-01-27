@@ -27,6 +27,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    api 'com.huawei.hms:scan:1.3.0.300'
+    provided 'com.huawei.hms:scan:1.3.0.300'
 //    provided files('libs/zxing.jar')
 }
