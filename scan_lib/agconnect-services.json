@@ -1,0 +1,14 @@
+{
+	"client":{
+		"appType":"1",
+		"cp_id":"2850086000458259737",
+		"product_id":"736430079244797412",
+		"client_id":"548977828268356224",
+		"client_secret":"33AC0A7DDB21A10EABCA11B3568289004C48520CBBE6361BC7832BCA45A64C4C",
+		"project_id":"736430079244797412",
+		"app_id":"103763587",
+		"api_key":"CgB6e3x96YEwREvbQbZmIUVsxC5IeJBCjxwklayEuyrLbmLWdJJ71d/rn0Wk+YJrurMSRi78dG4ue1gQC0KP4akZ",
+		"package_name":"com.xm6leefun.scan_lib"
+	},
+	"configuration_version":"1.0"
+}
