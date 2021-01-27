@@ -14,8 +14,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <include layout="@layout/scan_sdk_top_bar"/>
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,18 +28,41 @@
         android:background="@drawable/shape_rectangle_a1_50a"
         android:textColor="#f3f3f6"
         android:text="@string/scan_api_tips"
-        android:lineSpacingMultiplier="1.5"
+        android:lineSpacingMultiplier="1.2"
         android:layout_margin="20dp"
         android:padding="15dp"
         android:layout_below="@id/base_topBar_lin_main"/>
 
     <ImageView
         android:id="@+id/scan_area"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/cloors" />
+        android:src="@mipmap/scan_api_scanner_bg" />
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="120dp"
+        android:layout_height="5dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/scan_api_scanner_line"
+        android:scaleType="fitXY"
+        />
+
+    <ImageView
+        android:id="@+id/iv_scan_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:padding="10dp"
+        android:src="@mipmap/scan_close"
+        android:onClick="close"/>
+
+    <include layout="@layout/scan_sdk_top_bar"/>
+
   </RelativeLayout>
 
 </FrameLayout>

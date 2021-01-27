@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +30,8 @@ public class HwScanApiActivity extends Activity {
 
     protected FrameLayout frameLayout;
     protected RemoteView remoteView;
+    private ImageView scan_area;
+    private ImageView iv_line;
     int mScreenWidth;
     int mScreenHeight;
     //The width and height of scan_view_finder is both 240 dp.
@@ -54,6 +58,8 @@ public class HwScanApiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hw_scan_api);
         // Bind the camera preview screen.
+        scan_area = findViewById(R.id.scan_area);
+        iv_line = findViewById(R.id.iv_line);
         frameLayout = findViewById(R.id.rim);
         tvTitle = findViewById(R.id.base_topBar_tv_title);
         tvTitle.setText(getString(R.string.scan_api_title));
@@ -92,6 +98,8 @@ public class HwScanApiActivity extends Activity {
         remoteView.onCreate(savedInstanceState);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         frameLayout.addView(remoteView, params);
+
+        animateLine();
     }
 
     /**
@@ -181,5 +189,25 @@ public class HwScanApiActivity extends Activity {
     // 手电筒是否开启状态
     public void rightClick(View view) {
         remoteView.switchLight();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        animateLine();
+    }
+
+    private void animateLine() {
+        // 模拟的mPreviewView的左右上下坐标坐标
+        int left = scan_area.getLeft() / 2;
+        int top = scan_area.getTop() + 30;
+        int bottom = scan_area.getBottom() - 50;
+
+        TranslateAnimation tAnim = new TranslateAnimation(0, 0, top, bottom);//设置视图上下移动的位置
+        tAnim .setDuration(1800);
+        tAnim .setRepeatCount(Animation.INFINITE);
+        tAnim .setRepeatMode(Animation.REVERSE);
+        iv_line.setAnimation(tAnim);
+        tAnim.startNow();
     }
 }
