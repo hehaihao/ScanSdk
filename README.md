@@ -23,6 +23,10 @@ implementation 'com.huawei.hms:scan:1.3.0.300'
 -keepattributes InnerClasses
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
--keep class com.hianalytics.android.**{*;}
--keep class com.huawei.**{*;}
+-keep class com.huawei.hianalytics.**{*;}
+
+-keep class com.huawei.updatesdk.**{*;}
+
+-keep class com.huawei.hms.**{*;}
+
 -keep class com.xm6leefun.scan_lib.**{*;}
