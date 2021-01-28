@@ -1,15 +1,25 @@
 # ScanSdk
 add in project root:
+
 buildscript {
+
     repositories {
+    
         maven { url 'http://developer.huawei.com/repo/' }
+        
     }
+    
 }
 
+
 allprojects {
+
     repositories {
+    
         maven { url 'http://developer.huawei.com/repo/'}
+        
     }
+    
 }
 
 add in module:
@@ -18,11 +28,17 @@ implementation 'com.huawei.hms:scan:1.3.0.300'
 
 #about Proguard：
 -ignorewarnings
+
 -keepattributes *Annotation*
+
 -keepattributes Exceptions
+
 -keepattributes InnerClasses
+
 -keepattributes Signature
+
 -keepattributes SourceFile,LineNumberTable
+
 -keep class com.huawei.hianalytics.**{*;}
 
 -keep class com.huawei.updatesdk.**{*;}
