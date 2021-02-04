@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
-        WebApiActivity.jump(this,"file:///android_asset/index.html");
+        WebApiActivity.jump(this,"http://test12315.weecot.com/backCode/#/?n=ns000010000C004h&c=fd3f89");
     }
 }

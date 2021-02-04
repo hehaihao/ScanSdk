@@ -4,14 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,6 +39,7 @@ public class WebApiActivity extends Activity {
     }
 
     private static final String URL = "url";
+    private String url = "";
 
     private WebView web;
     @SuppressLint("JavascriptInterface")
@@ -56,7 +60,22 @@ public class WebApiActivity extends Activity {
         webSetting.setAppCacheEnabled(false);
 
         webSetting.setUserAgentString(webSetting.getUserAgentString() + ";TrueValue");
+        web.setWebChromeClient(webChromeClient);
         web.setWebViewClient(new WebViewClient(){
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if(url.contains("zwd") && url.contains(".apk")){//过滤真唯度下载链接，因为已经在真唯度里打开H5了（或者让H5去限制是否可点击真唯度图标）
+                    return true;
+                }
+                if (url.contains(".apk") || url.endsWith(".apk")) {
+                    Uri uri = Uri.parse(url);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                    return super.shouldOverrideUrlLoading(view, url);
+                } else {
+                    view.loadUrl(url);
+                    return true;
+                }
+            }
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 //https忽略证书问题
@@ -66,10 +85,17 @@ public class WebApiActivity extends Activity {
         });
         web.addJavascriptInterface(new ScanSDKJsInterface(),"js");
         Bundle args = getIntent().getExtras();
-        String url = "";
         if(args != null) url = args.getString(URL,"");
         web.loadUrl(url);
     }
+
+    private WebChromeClient webChromeClient = new WebChromeClient() {
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+            callback.invoke(origin, true, false);
+            super.onGeolocationPermissionsShowPrompt(origin, callback);
+        }
+    };
 
     private class ScanSDKJsInterface{
         /**
@@ -103,6 +129,46 @@ public class WebApiActivity extends Activity {
                     finish();
                 }
             });
+        }
+
+        @JavascriptInterface
+        public void openBlockBrowser(final String url){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    WebApiActivity.jump(WebApiActivity.this, url);
+                }
+            });
+        }
+        //跳转个人中心
+        @JavascriptInterface
+        public void jumpPersonal(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    toPersonalPage();
+                }
+            });
+        }
+        //SDK中登录处理跳转个人中心
+        @JavascriptInterface
+        public void login(){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    toPersonalPage();
+                }
+            });
+        }
+
+        /**
+         * 跳转h5个人中心
+         */
+        private void toPersonalPage(){
+            if(url.contains("#")){
+                String personalUrl = url.split("#")[0] + "#/personal";
+                web.loadUrl(personalUrl);
+            }
         }
     }
 
