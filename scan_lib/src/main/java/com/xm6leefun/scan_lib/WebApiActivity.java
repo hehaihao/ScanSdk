@@ -1,5 +1,6 @@
 package com.xm6leefun.scan_lib;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -40,13 +41,19 @@ public class WebApiActivity extends Activity {
 
     private static final String URL = "url";
     private String url = "";
-
+    //权限数组（申请定位）
+    private String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    //返回code
+    private static final int OPEN_SET_REQUEST_CODE = 100;
     private WebView web;
     @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_api);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions,OPEN_SET_REQUEST_CODE);
+        }
         web = findViewById(R.id.web);
         WebSettings webSetting = web.getSettings();
         webSetting.setJavaScriptEnabled(true);
@@ -54,7 +61,7 @@ public class WebApiActivity extends Activity {
         webSetting.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         webSetting.setDomStorageEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSetting.setMixedContentMode(android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            webSetting.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         webSetting.setBlockNetworkImage(false);
         webSetting.setAppCacheEnabled(false);

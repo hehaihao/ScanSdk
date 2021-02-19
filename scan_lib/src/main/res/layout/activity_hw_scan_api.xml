@@ -14,13 +14,31 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    <ImageView
+    <!-- 绘制阴影部分 -->
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:background="#FF000000"
-        android:alpha="0.1" />
+        android:layout_above="@id/scan_area"
+        android:background="#60000000"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/scan_area"
+        android:background="#60000000"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@id/scan_area"
+        android:layout_alignTop="@id/scan_area"
+        android:layout_alignBottom="@id/scan_area"
+        android:background="#60000000"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/scan_area"
+        android:layout_alignTop="@id/scan_area"
+        android:layout_alignBottom="@id/scan_area"
+        android:background="#60000000"/>
 
     <TextView
         android:layout_width="match_parent"
