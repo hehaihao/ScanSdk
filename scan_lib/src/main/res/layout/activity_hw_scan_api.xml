@@ -61,7 +61,7 @@
 
     <ImageView
         android:id="@+id/iv_line"
-        android:layout_width="120dp"
+        android:layout_width="145dp"
         android:layout_height="5dp"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/scan_api_scanner_line"

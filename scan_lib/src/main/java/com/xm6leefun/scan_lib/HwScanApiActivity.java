@@ -34,8 +34,8 @@ public class HwScanApiActivity extends Activity {
     private ImageView iv_line;
     int mScreenWidth;
     int mScreenHeight;
-    //The width and height of scan_view_finder is both 240 dp.
-    final int SCAN_FRAME_SIZE = 240;
+    //The width and height of scan_view_finder is both 210 dp.
+    final int SCAN_FRAME_SIZE = 210;
 
     //Declare the key. It is used to obtain the value returned from Scan Kit.
     public static final String SCAN_RESULT = "scanResult";
