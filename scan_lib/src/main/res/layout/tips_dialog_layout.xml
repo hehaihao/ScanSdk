@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="25dp"
+    android:gravity="center"
+    android:background="@drawable/white_10dp_conner">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingBottom="15dp"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        />
+
+
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        />
+    <TextView
+        android:id="@+id/second_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#99000000"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/white_10dp_top_conner"
+        app:layout_constraintTop_toBottomOf="@id/content_tv">
+
+        <TextView
+            android:id="@+id/sure_tv"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="@string/backup_sure_know"
+            android:gravity="center"
+            android:background="@drawable/btn_shape_black1a"/>
+
+    </LinearLayout>
+
+</LinearLayout>

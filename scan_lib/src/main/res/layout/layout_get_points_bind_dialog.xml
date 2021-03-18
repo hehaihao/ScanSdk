@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="15dp"
+    android:background="@drawable/btn_shape_rectangle_white_no_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:id="@+id/iv_question_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/question_mark_icon"
+            android:padding="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/activity_get_points"
+                />
+            <TextView
+                android:id="@+id/tv_get_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="#222222"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:text="@string/identify_dialog_get_points"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textColor="#999"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/identify_dialog_bind_account"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/tv_no_bind_temp"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="@string/identify_dialog_abandon_receive"
+            android:gravity="center"
+            android:background="@drawable/btn_shape_black1a"/>
+        <TextView
+            android:id="@+id/tv_bind_now"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="@string/identify_dialog_login_now"
+            android:gravity="center"
+            android:background="@drawable/btn_shape_black1a"/>
+
+    </LinearLayout>
+
+</LinearLayout>

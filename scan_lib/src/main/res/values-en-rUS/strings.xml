@@ -3,4 +3,74 @@
     <string name="scan_api_fail">ScanFail</string>
     <string name="scan_api_camera_not_init">Camera not initialized,please wait a moment.</string>
     <string name="scan_api_tips">Please aim the mobile phone camera at the anti-counterfeiting label, or tilt it back and forth slightly to avoid the reflection of the label. The label should be flat and free of dirt!</string>
+    <string name="nfc_is_no_open">NFC function is unopened</string>
+    <string name="nfc_set">Open NFC function, the NFC query can be used</string>
+    <string name="nfc_now_open">Open now</string>
+    <string name="main_say_text">Place the phone in the bottle cap NFC sensor area.</string>
+    <string name="phone_not_support">The device does not support NFC!</string>
+    <string name="app_base_cancel">Cancel</string>
+    <string name="app_base_confirm">Sure</string>
+    <string name="reminder">Reminder</string>
+    <string name="no_our_platform">The chip belongs to the partner\'s chip, and the partner\'s link will be opened soon. The content of the link has nothing to do with our platform. \nChip source: %s</string>
+    <string name="continue_read">Continue</string>
+
+    <string name="nfc_zhu">Please beware of counterfeit goods</string>
+    <string name="no_open">This product has not been opened</string>
+    <string name="normal_say">This product identification result is: </string>
+    <string name="already_open">This product has been opened</string>
+    <string name="no_goods">This commodity does not exist</string>
+    <string name="fanwei">Anti-counterfeit traceability information</string>
+
+    <string name="no_me">Chips not on this platform or from partners, please beware of counterfeiting</string>
+    <string name="no_me_link">Be cautious about link which are not from our platform or the partner\'s</string>
+    <string name="app_guanfang_jiandig">True value Authenticated</string>
+    <string name="look_goods_details">Commodity details</string>
+    <string name="nfc_jianding_loading">Identifying…</string>
+    <string name="nfc_jianding_rsult">NFC Identification results</string>
+    <string name="nfc_no_pass">Identification did not pass</string>
+    <string name="no_platform_tips">Chip not on this platform, please beware of counterfeiting</string>
+
+    <string name="sure">Determine</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+
+    <string name="identify_dialog_tag">Points products</string>
+    <string name="identify_dialog_title">"Porch" to earn points</string>
+    <string name="identify_dialog_tip">Sensing anti-counterfeiting labels, if the product is opened, there is a chance to earn points</string>
+    <string name="identify_dialog_no_points">Unfortunately, this appraisal did not earn points</string>
+    <string name="identify_dialog_already_received">Sorry, the points have been claimed</string>
+    <string name="identify_dialog_got_it">Got it</string>
+    <string name="identify_dialog_get_points">Congratulations on getting %s points</string>
+    <string name="identify_dialog_get_points_yet">Successfully get %s points</string>
+    <string name="identify_dialog_bind_account">Please bind your mobile phone number to transfer points to your personal account</string>
+    <string name="identify_dialog_abandon_receive">Give up</string>
+    <string name="identify_dialog_login_now">Login</string>
+    <string name="identify_dialog_tip_read_details">Please check the points details in the personal center</string>
+    <string name="identify_dialog_read_details">Read Details</string>
+    <string name="identify_dialog_login">Login/Register to receive points</string>
+    <string name="dialog_login">Login/Register</string>
+
+    <string name="app_login_register">Login / Register</string>
+    <string name="app_login_code">SMS Code login</string>
+    <string name="app_login_pwd">Password login</string>
+    <string name="personal_setting_input_phone">Enter Phone</string>
+    <string name="personal_setting_send_code">Get Code</string>
+    <string name="personal_setting_input_code">Enter Code</string>
+    <string name="login_text">Login/Register</string>
+    <string name="backup_sure_know">Got it</string>
+    <string name="phone_is_null">Please enter phone number</string>
+    <string name="code_not_empty">The verification code should not be empty</string>
+    <string name="pwd_not_empty">The password code should not be empty</string>
+    <string name="code_is_null">Please enter SMS code</string>
+    <string name="psw_is_null">Please enter password</string>
+    <string name="phone_is_error">Please enter the correct phone number format</string>
+    <string name="btn_login">Login</string>
+    <string name="app_introduce">Anti-counterfeiting traceability platform based on blockChain technology</string>
+    <string name="setting_user_protocol">Service Agreement</string>
+    <string name="setting_privacy_policy">Privacy Policy</string>
+
+    <string name="get_code">Get code</string>
+    <string name="get_code_count">%ds</string>
+    <string name="loading_str">Loading...</string>
+    <string name="scan_fail">Scan Failed</string>
 </resources>

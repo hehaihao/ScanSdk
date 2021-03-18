@@ -11,8 +11,12 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature  android:name="android.hardware.nfc"
+        android:required="true" />
+    <uses-permission android:name="android.permission.NFC" />
 
     <application
+        android:networkSecurityConfig="@xml/network"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".HwScanApiActivity"
@@ -22,6 +26,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".WebApiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".nfc.NfcActivity"
+            android:screenOrientation="portrait">
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc">
+            </meta-data>
+        </activity>
+        <activity
+            android:name=".appraisa.AppraisalActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.ZWDLoginActivity"
             android:screenOrientation="portrait" />
     </application>
 

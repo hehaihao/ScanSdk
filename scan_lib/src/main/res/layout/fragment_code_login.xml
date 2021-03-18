@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!--  验证码登录-->
+    <LinearLayout
+        android:id="@+id/lin_code_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/btn_shape_rectangle_greyf1"
+            >
+
+            <EditText
+                android:id="@+id/ed_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:ems="11"
+                android:maxLength="11"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:padding="15dp"
+                android:hint="@string/phone_is_null" />
+            <TextView
+                android:id="@+id/tv_send_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:padding="15dp"
+                android:enabled="false"
+                android:text="@string/get_code"
+                android:textColor="@drawable/text_enable_selector"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/ed_code"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_shape_rectangle_greyf1"
+            android:ems="11"
+            android:inputType="number"
+            android:padding="15dp"
+            android:hint="@string/code_is_null"
+            android:maxLength="6"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

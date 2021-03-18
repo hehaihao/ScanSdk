@@ -3,4 +3,74 @@
     <string name="scan_api_fail">扫码失败</string>
     <string name="scan_api_camera_not_init">摄像头未初始化，请稍后</string>
     <string name="scan_api_tips">请将手机摄像头对准防伪标签，或稍微前后倾斜，避免标签反光，标签应平整，没有污损</string>
+    <string name="nfc_is_no_open">NFC功能未开启</string>
+    <string name="nfc_set">开启NFC功能后才能使用NFC查询</string>
+    <string name="nfc_now_open">立即开启</string>
+    <string name="main_say_text">将手机NFC感应区靠近芯片位置</string>
+    <string name="phone_not_support">手机不支持NFC功能</string>
+    <string name="app_base_cancel">取消</string>
+    <string name="app_base_confirm">确定</string>
+    <string name="reminder">友情提醒</string>
+    <string name="no_our_platform">该芯片属于合作方芯片，即将打开合作方的链接，链接内容与唯物链防伪溯源平台无关。\n芯片来源：%s</string>
+    <string name="continue_read">继续查看</string>
+
+    <string name="nfc_zhu">请谨防商品被假冒</string>
+    <string name="no_open">该商品尚未被打开</string>
+    <string name="normal_say">此商品鉴定结果为：</string>
+    <string name="already_open">此商品已经被打开</string>
+    <string name="no_goods">此商品不存在</string>
+    <string name="fanwei">防伪溯源信息</string>
+
+    <string name="no_me">非本平台芯片或合作方芯片，请谨防假冒</string>
+    <string name="no_me_link">非本平台链接或合作方链接，请谨防假冒</string>
+    <string name="app_guanfang_jiandig">真唯度官方平台鉴定</string>
+    <string name="look_goods_details">查看商品详情</string>
+    <string name="nfc_jianding_loading">鉴定中…</string>
+    <string name="nfc_jianding_rsult">NFC鉴定结果</string>
+    <string name="nfc_no_pass">鉴定未通过</string>
+    <string name="no_platform_tips">非本平台芯片，请谨防假冒</string>
+
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="close">关闭</string>
+
+    <string name="identify_dialog_tag">积分商品</string>
+    <string name="identify_dialog_title">“卟噔”送积分</string>
+    <string name="identify_dialog_tip">感应防伪标签，如商品被打开，有机会获得积分</string>
+    <string name="identify_dialog_no_points">很遗憾，本次鉴定没有获得积分</string>
+    <string name="identify_dialog_already_received">抱歉，积分已被领取</string>
+    <string name="identify_dialog_got_it">知道了</string>
+    <string name="identify_dialog_get_points">恭喜你获得%s个积分</string>
+    <string name="identify_dialog_get_points_yet">已成功领取%s个积分</string>
+    <string name="identify_dialog_bind_account">请绑定手机号将积分转于个人账户</string>
+    <string name="identify_dialog_abandon_receive">放弃领取</string>
+    <string name="identify_dialog_login_now">立即登录</string>
+    <string name="identify_dialog_tip_read_details">积分详情请于个人中心查看</string>
+    <string name="identify_dialog_read_details">查看详情</string>
+    <string name="identify_dialog_login">登录/注册真唯度，领取积分</string>
+    <string name="dialog_login">登录/注册真唯度</string>
+
+    <string name="app_login_register">登录或注册真唯度</string>
+    <string name="app_login_code">短信验证码登录</string>
+    <string name="app_login_pwd">密码登录</string>
+    <string name="personal_setting_input_phone">请输入手机号码</string>
+    <string name="personal_setting_send_code">获取验证码</string>
+    <string name="personal_setting_input_code">请输入验证码</string>
+    <string name="login_text">登录/注册</string>
+    <string name="backup_sure_know">知道了</string>
+    <string name="phone_is_null">请输入您的手机号</string>
+    <string name="code_not_empty">验证码不得为空</string>
+    <string name="pwd_not_empty">密码不得为空</string>
+    <string name="code_is_null">请输入验证码</string>
+    <string name="psw_is_null">请输入您的密码</string>
+    <string name="phone_is_error">请输入正确手机号格式</string>
+    <string name="btn_login">登录</string>
+    <string name="app_introduce">基于区块链技术的防伪溯源平台</string>
+    <string name="setting_user_protocol">服务协议</string>
+    <string name="setting_privacy_policy">隐私政策</string>
+
+    <string name="get_code">获取验证码</string>
+    <string name="get_code_count">%ds</string>
+    <string name="loading_str">加载中...</string>
+    <string name="scan_fail">扫码失败</string>
 </resources>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/scan_sdk_top_bar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="24dp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:text="@string/app_login_register"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="#99222222"
+                android:text="@string/app_introduce"
+                android:textSize="13sp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                >
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="20dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/radiogroup">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@null"
+                        android:id="@+id/code_login"
+                        android:textSize="16sp"
+                        android:text="@string/app_login_code"
+                        android:textColor="@drawable/login_switch_bg"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:button="@null"
+                        android:id="@+id/pwd_login"
+                        android:textSize="16sp"
+                        android:text="@string/app_login_pwd"
+                        android:textColor="@drawable/login_switch_bg"/>
+                </RadioGroup>
+
+                <FrameLayout
+                    android:id="@+id/fram_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:overScrollMode="never"
+                    android:fadingEdge="none"
+                    android:layout_marginTop="20dp"
+                    android:background="#ffffff"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:onClick="login"
+                    android:textSize="16sp"
+                    android:background="@drawable/btn_shape_blue"
+                    android:text="@string/btn_login" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/login_tv_privacy_policy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#999"
+                        android:text="@string/setting_privacy_policy"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:onClick="privacyPolicy"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="&amp;" />
+
+                    <TextView
+                        android:id="@+id/login_tv_user_protocol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#999"
+                        android:text="@string/setting_user_protocol"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:onClick="userProtocol"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

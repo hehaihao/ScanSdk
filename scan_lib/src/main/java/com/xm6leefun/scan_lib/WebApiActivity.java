@@ -22,6 +22,8 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.huawei.hms.ml.scan.HmsScan;
+import com.xm6leefun.scan_lib.listener.AuthListener;
+import com.xm6leefun.scan_lib.login.ZWDLoginActivity;
 
 
 /**
@@ -29,7 +31,7 @@ import com.huawei.hms.ml.scan.HmsScan;
  * @Author: hhh
  * @CreateDate: 2021/1/22 16:42
  */
-public class WebApiActivity extends Activity {
+public class WebApiActivity extends Activity implements AuthListener{
 
     public static void jump(Context context,String url){
         Intent intent = new Intent(context,WebApiActivity.class);
@@ -104,16 +106,34 @@ public class WebApiActivity extends Activity {
         }
     };
 
+    @Override
+    public void onData(String token) {
+        //登录成功回调H5
+        web.loadUrl("javascript:loginSuccess(\"" + token + "\")");
+    }
+
     private class ScanSDKJsInterface{
         /**
-         * 打开扫一扫
+         * 领取积分成功
+         */
+        @JavascriptInterface
+        public void getPointsSuccess() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
+        /**
+         * 打开扫一扫,回码
          */
         @JavascriptInterface
         public void appCamera() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    HwScanApiActivity.jumpForResult(WebApiActivity.this,web);
+                    HwScanApiActivity.jumpForResult(WebApiActivity.this,web,true);
                 }
             });
         }
@@ -157,13 +177,22 @@ public class WebApiActivity extends Activity {
                 }
             });
         }
-        //SDK中登录处理跳转个人中心
+
+        @JavascriptInterface
+        public void login(final String type){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ZWDLoginActivity.jumpForData(WebApiActivity.this, WebApiActivity.this);
+                }
+            });
+        }
         @JavascriptInterface
         public void login(){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    toPersonalPage();
+                    ZWDLoginActivity.jumpForData(WebApiActivity.this, WebApiActivity.this);
                 }
             });
         }

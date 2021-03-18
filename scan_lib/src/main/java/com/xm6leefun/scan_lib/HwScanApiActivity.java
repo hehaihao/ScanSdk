@@ -16,13 +16,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huawei.hms.hmsscankit.OnResultCallback;
 import com.huawei.hms.hmsscankit.RemoteView;
 import com.huawei.hms.hmsscankit.ScanUtil;
 import com.huawei.hms.ml.scan.HmsScan;
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
+import com.xm6leefun.scan_lib.net.ApiConfig;
+import com.xm6leefun.scan_lib.utils.ChipConstant;
 import com.xm6leefun.scan_lib.utils.CircularAnimUtil;
+import com.xm6leefun.scan_lib.utils.DealUrlDataUtils;
+import com.xm6leefun.scan_lib.utils.SharePreferenceUtil;
 
 import java.io.IOException;
 
@@ -39,6 +44,7 @@ public class HwScanApiActivity extends Activity {
 
     //Declare the key. It is used to obtain the value returned from Scan Kit.
     public static final String SCAN_RESULT = "scanResult";
+    public static final String IS_BACK_CODE = "isBackCode";
     private static final int REQUEST_CODE_PHOTO = 0X1113;
     public static final int SCAN_CODE = 0X1114;
     private TextView tvTitle;
@@ -48,15 +54,21 @@ public class HwScanApiActivity extends Activity {
         Intent intent = new Intent(activity,HwScanApiActivity.class);
         CircularAnimUtil.startActivity(activity, intent, triggerView,R.color.tran, 100);
     }
-    public static void jumpForResult(Activity activity,View triggerView){
+    public static void jumpForResult(Activity activity,View triggerView,boolean isBackCode){
         Intent intent = new Intent(activity,HwScanApiActivity.class);
+        Bundle args = new Bundle();
+        args.putBoolean(IS_BACK_CODE,isBackCode);
+        intent.putExtras(args);
         CircularAnimUtil.startActivityForResult(activity, intent, SCAN_CODE,triggerView,R.color.tran, 100);
     }
 
+    private boolean isBackCode = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hw_scan_api);
+        Bundle args = getIntent().getExtras();
+        if(args != null)isBackCode = args.getBoolean(IS_BACK_CODE,false);
         // Bind the camera preview screen.
         scan_area = findViewById(R.id.scan_area);
         iv_line = findViewById(R.id.iv_line);
@@ -102,6 +114,7 @@ public class HwScanApiActivity extends Activity {
         animateLine();
     }
 
+    private String qrCode =null;
     /**
      * 处理扫描结果
      * @param result
@@ -111,10 +124,37 @@ public class HwScanApiActivity extends Activity {
         if (result != null && result.length > 0 && result[0] != null && !TextUtils.isEmpty(result[0].getOriginalValue())) {
             Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
             vibrator.vibrate(100);
-            Intent intent = new Intent();
-            intent.putExtra(SCAN_RESULT, result[0]);
-            setResult(RESULT_OK, intent);
-            HwScanApiActivity.this.finish();
+            if(isBackCode){//回码
+                Intent intent = new Intent();
+                intent.putExtra(SCAN_RESULT, result[0]);
+                setResult(RESULT_OK, intent);
+                HwScanApiActivity.this.finish();
+            }else {
+                String resultScan = result[0].getOriginalValue();
+                qrCode = resultScan;
+                String belong2UsStr = DealUrlDataUtils.isBelong2Us(qrCode);
+                // todo  测试  tq给进  部分注释
+                if (!qrCode.startsWith(ApiConfig.URL_HEAD_QRCODE)/* && !qrCode.startsWith("http://tqrco.weecot.com")*/) {  // 不是以公司域名开头
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_me_link), Toast.LENGTH_SHORT).show();
+                    remoteView.onResume();
+                    return;
+                }
+                String userId = SharePreferenceUtil.getString(ChipConstant.User_ID);
+                qrCode = qrCode + "&type=2&userUuid=" + userId;
+                String resultCode = ApiConfig.URL_HEAD_QRCODE + "/backCode/#/?" + belong2UsStr;
+                String[] temp = qrCode.split(belong2UsStr);
+                switch (belong2UsStr) {
+                    case "w=":
+                    case "n=":
+                    case "p=":
+                        resultCode = resultCode + temp[1] + "&token=" + SharePreferenceUtil.getString(ChipConstant.TOKEN);
+                        //跳转回码H5
+                        WebApiActivity.jump(this, resultCode);
+                        break;
+                }
+            }
+        }else{
+            Toast.makeText(getApplicationContext(),getString(R.string.scan_fail),Toast.LENGTH_SHORT).show();
         }
     }
 
